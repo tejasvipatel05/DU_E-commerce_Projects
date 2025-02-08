@@ -1,18 +1,27 @@
 const express = require('express')
 const mongoose = require('mongoose');
 require('dotenv').config()
-const userRoute = require('./routes/UserRoutes');
+const userRoutes = require('./routes/UserRoutes');
 
 const { Product } = require('./model/Product');
 const { Cart } = require('./model/Cart');
 const { Category } = require('./model/Category');
 const { User } = require('./model/User');
+const { Order } = require('./model/Order');
+const { Coupon } = require('./model/Coupon');
+const { Payment } = require('./model/Payment');
+const { Review } = require('./model/Review');
+const { Wishlist } = require('./model/Wishlist');
+const { Return } = require('./model/Return');
+
 
 mongoose.connect(process.env.dbUrl).then(()=>{
     console.log("DB Connected")
     const app = express()
+    
+      
 
-    app.use('/users',userRoute);
+    app.use('/users',userRoutes);
 
     // app.get('/all-products', async(req, res)=>{
     //     const products = await Product.find()

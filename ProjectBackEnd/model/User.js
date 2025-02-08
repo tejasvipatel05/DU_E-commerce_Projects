@@ -19,7 +19,6 @@ const UserSchema = new mongoose.Schema({
     updated_at: { type: Date, default: Date.now },
     cart_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Cart', required: true },
     wishlist_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Wishlist', required: true },
-    
 });
 
 module.exports.User = mongoose.model('User', UserSchema) 
