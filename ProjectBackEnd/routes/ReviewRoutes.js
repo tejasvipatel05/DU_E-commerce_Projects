@@ -1,35 +1,35 @@
 const express = require('express');
 
-const {User} = require('../model/User');
+const {Review} = require('../model/Review');
 const router = express.Router();
 
-//GET all users
+//GET all Review
 router.get('/',async(req, res) => {
-    const data = await User.find();
+    const data = await Review.find();
     res.send(data);
 })
 
-//GET user by id
+//GET Review by id
 router.get('/:id', async (req, res) => {
-    const data = await User.findById(req.params.id);
+    const data = await Review.findById(req.params.id);
     res.send(data);
 })
 
-//POST user
+//POST new Review
 router.post('/', async (req, res) => {
-    const data = await User.create(req.body);
+    const data = await Review.create(req.body);
     res.send(data);
 })
 
-//PATCH user
+//PATCH Review
 router.patch('/:id', async (req, res) => {
-    const data = await User.findByIdAndUpdate(req.params.id, req.body);
+    const data = await Review.findByIdAndUpdate(req.params.id, req.body);
     res.send(data);
 })
 
-//DELETE user
+//DELETE Review
 router.delete('/:id', async (req, res) => {
-    const data = await User.findByIdAndDelete(req.params.id);
+    const data = await Review.findByIdAndDelete(req.params.id);
     res.send(data);
 })
 

@@ -1,35 +1,37 @@
 const express = require('express');
 
+const {Order} = require('../model/Order');
 const {User} = require('../model/User');
+const {Cart} = require('../model/Cart')
 const router = express.Router();
 
-//GET all users
+//GET all orders
 router.get('/',async(req, res) => {
-    const data = await User.find();
+    const data = await Order.find();
     res.send(data);
 })
 
-//GET user by id
+//GET Order by id
 router.get('/:id', async (req, res) => {
-    const data = await User.findById(req.params.id);
+    const data = await Order.findById(req.params.id);
     res.send(data);
 })
 
-//POST user
+//POST Order
 router.post('/', async (req, res) => {
-    const data = await User.create(req.body);
+    const data = await Order.create(req.body);
     res.send(data);
 })
 
-//PATCH user
+//PATCH Order
 router.patch('/:id', async (req, res) => {
-    const data = await User.findByIdAndUpdate(req.params.id, req.body);
+    const data = await Order.findByIdAndUpdate(req.params.id, req.body);
     res.send(data);
 })
 
-//DELETE user
+//DELETE Order
 router.delete('/:id', async (req, res) => {
-    const data = await User.findByIdAndDelete(req.params.id);
+    const data = await Order.findByIdAndDelete(req.params.id);
     res.send(data);
 })
 
