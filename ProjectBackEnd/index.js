@@ -15,7 +15,8 @@ const orderRoutes = require('./routes/OrderRoutes');
 const returnRoutes = require('./routes/ReturnRoutes');
 const wishlistRoutes = require('./routes/WishlistRoutes');
 
-mongoose.connect(process.env.dbUrl).then(()=>{
+mongoose.connect(process.env.dbUrl)
+    .then(()=>{
     console.log("DB Connected")
     const app = express()
 

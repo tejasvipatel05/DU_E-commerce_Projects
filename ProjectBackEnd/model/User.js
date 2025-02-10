@@ -5,20 +5,20 @@ const UserSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password_hash: { type: String, required: true },
-    first_name: String,
-    last_name: String,
-    phone_number: String,
-    address: String,
+    first_name: {type: String},
+    last_name: {type: String},
+    phone_number: {type: String},
+    address: {type: String},
     role: { type: String, enum: ['customer','admin','seller'], default:'customer'},
     seller_details: {
-        store_name: String,
-        gst_number: String,
-        bank_account: String
+        store_name: {type: String},
+        gst_number: {type: String},
+        bank_account: {type: String},
     },
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },
-    cart_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Cart', required: true },
-    wishlist_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Wishlist', required: true },
+    cart_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Cart' },
+    wishlist_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Wishlist'},
 });
 
 module.exports.User = mongoose.model('User', UserSchema) 
