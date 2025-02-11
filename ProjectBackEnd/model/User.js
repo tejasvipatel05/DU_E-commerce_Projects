@@ -17,8 +17,8 @@ const UserSchema = new mongoose.Schema({
     },
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },
-    cart_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Cart' },
-    wishlist_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Wishlist'},
+    cart_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Cart', default: null},
+    wishlist_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Wishlist', default: null},
 });
 
 module.exports.User = mongoose.model('User', UserSchema) 
