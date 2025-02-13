@@ -1,36 +1,14 @@
 const express = require('express');
+const { getAllCategories, getCategoryById, createCategory, updateCategory, deleteCategory } = require('../controllers/categoryController');
+const authMiddleware = require('../middleware/authMiddleware');
 
-const {Category} = require('../model/Category');
 const router = express.Router();
 
-//GET all categories
-router.get('/',async(req, res) => {
-    const data = await Category.find();
-    res.send(data);
-})
+router.get('/',  authMiddleware.authenticate, getAllCategories);
+router.get('/:id', authMiddleware.authenticate, getCategoryById);
+router.post('/', authMiddleware.authenticate, authMiddleware.authorize("admin", "createCategory"), createCategory);
+router.patch('/:id', authMiddleware.authenticate, authMiddleware.authorize("admin", "updateCategory"), updateCategory);
+router.delete('/:id', authMiddleware.authenticate, authMiddleware.authorize("admin", "deleteCategory"), deleteCategory);
 
-//GET category by id
-router.get('/:id', async (req, res) => {
-    const data = await Category.findById(req.params.id);
-    res.send(data);
-})
-
-//POST category
-router.post('/', async (req, res) => {
-    const data = await Category.create(req.body);
-    res.send(data);
-})
-
-//PATCH category
-router.patch('/:id', async (req, res) => {
-    const data = await Category.findByIdAndUpdate(req.params.id, req.body);
-    res.send(data);
-})
-
-//DELETE category
-router.delete('/:id', async (req, res) => {
-    const data = await Category.findByIdAndDelete(req.params.id);
-    res.send(data);
-})
 
 module.exports = router;

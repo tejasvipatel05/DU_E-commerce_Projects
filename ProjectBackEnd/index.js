@@ -1,8 +1,9 @@
 const express = require('express')
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-require('dotenv').config()
+require('dotenv').config();
+const connectDB = require('./config/db');
 
+const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/UserRoutes');
 const cartRoutes = require('./routes/CartRoutes');
 const categoryRoutes = require('./routes/CategoryRoutes');
@@ -15,29 +16,25 @@ const orderRoutes = require('./routes/OrderRoutes');
 const returnRoutes = require('./routes/ReturnRoutes');
 const wishlistRoutes = require('./routes/WishlistRoutes');
 
-mongoose.connect(process.env.dbUrl).then(()=>{
-    console.log("DB Connected")
-    const app = express()
 
-    app.use(bodyParser.json());
+const app = express();
+app.use(bodyParser.json());
+
+connectDB();
     
-    app.use('/user',userRoutes);
-    app.use('/cart',cartRoutes);
-    app.use('/category',categoryRoutes);
-    app.use('/coupon',couponRoutes);
-    app.use('/discount',discountRoutes);
-    app.use('/review',reviewRoutes);
-    app.use('/payment',paymentRoutes);
-    app.use('/product',productRoutes);
-    app.use('/order',orderRoutes);
-    app.use('/return',returnRoutes);
-    app.use('/wishlist',wishlistRoutes);
+app.use('/auth', authRoutes);
+app.use('/user',userRoutes);
+app.use('/cart',cartRoutes);
+app.use('/category',categoryRoutes);
+app.use('/coupon',couponRoutes);
+app.use('/discount',discountRoutes);
+app.use('/review',reviewRoutes);
+app.use('/payment',paymentRoutes);
+app.use('/product',productRoutes);
+app.use('/order',orderRoutes);
+app.use('/return',returnRoutes);
+app.use('/wishlist',wishlistRoutes);
 
-    app.listen(process.env.PORT,(req, res)=>{
-        console.log("Server Started @ "+process.env.PORT+" port");
-        
-    })
-})
-.catch((err)=>{
-    console.log(err);
-})
+app.listen(process.env.PORT,(req, res)=>{
+    console.log("Server Started @ "+process.env.PORT+" port");
+});
