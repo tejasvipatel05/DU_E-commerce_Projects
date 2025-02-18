@@ -1,38 +1,17 @@
 const express = require('express');
 
-const { Discount } = require('../model/Discount');
+const discountController = require('../controllers/discountController');
+const { authenticate, authorize } = require('../middleware/authMiddleware');
 const router = express.Router();
 
+router.get('/', authenticate, discountController.getAllDiscounts);
+router.get('/:id', authenticate, discountController.getDiscountById);
+router.get('/product/:productId', authenticate, discountController.getDiscountsByProduct);
+router.get('/category/:categoryId', authenticate, discountController.getDiscountsByCategory);
 
-//GET all discount
-router.get('/',async(req, res) => {
-    const data = await Discount.find();
-    res.send(data);
-})
-
-//GET Discount by id
-router.get('/:id', async (req, res) => {
-    const data = await Discount.findById(req.params.id);
-    res.send(data);
-})
-
-//POST Discount (admin)
-router.post('/', async (req, res) => {
-    const data = await Discount.create(req.body);
-    res.send(data);
-})
-
-//PATCH Discount (admin)
-router.patch('/:id', async (req, res) => {
-    const data = await Discount.findByIdAndUpdate(req.params.id, req.body);
-    res.send(data);
-})
-
-//DELETE Discount
-router.delete('/:id', async (req, res) => {
-    const data = await Discount.findByIdAndDelete(req.params.id);
-    res.send(data);
-})
+router.post('/', authenticate, authorize('admin','seller'), discountController.createDiscount);
+router.put('/:id', authenticate, authorize('admin','seller'), discountController.updateDiscount);
+router.delete('/:id', authenticate, authorize('admin','seller'), discountController.deleteDiscount);
 
 
 module.exports = router;

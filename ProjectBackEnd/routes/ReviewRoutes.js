@@ -1,36 +1,32 @@
 const express = require('express');
 
-const {Review} = require('../model/Review');
+const { authenticate, authorize } = require('../middleware/authMiddleware');
 const router = express.Router();
+const reviewController = require('../controllers/reviewController');
 
-//GET all Review
-router.get('/',async(req, res) => {
-    const data = await Review.find();
-    res.send(data);
-})
+// Get all reviews
+router.get('/', authenticate, reviewController.getAllReviews);
 
-//GET Review by id
-router.get('/:id', async (req, res) => {
-    const data = await Review.findById(req.params.id);
-    res.send(data);
-})
+// Get review details by review ID
+router.get('/:id', authenticate, reviewController.getReviewById);
 
-//POST new Review
-router.post('/', async (req, res) => {
-    const data = await Review.create(req.body);
-    res.send(data);
-})
+// Get reviews for a specific product
+router.get('/product/:productId', authenticate, reviewController.getReviewsByProduct);
 
-//PATCH Review
-router.patch('/:id', async (req, res) => {
-    const data = await Review.findByIdAndUpdate(req.params.id, req.body);
-    res.send(data);
-})
+// Get reviews written by a specific user
+router.get('/user/:userId', authenticate,  reviewController.getReviewsByUser);
 
-//DELETE Review
-router.delete('/:id', async (req, res) => {
-    const data = await Review.findByIdAndDelete(req.params.id);
-    res.send(data);
-})
+// Seller Get reviews for products sold by the logged-in seller
+router.get('/seller', authenticate, reviewController.getReviewsForSeller);
+
+// Create a new review
+router.post('/', authenticate, authorize('admin','customer'), reviewController.createReview);
+
+// Update an existing review
+router.put('/:id', authenticate, authorize('admin','customer'), reviewController.updateReview);
+
+// Delete a review
+router.delete('/:id', authenticate, authorize('admin','customer'), reviewController.deleteReview);
+
 
 module.exports = router;

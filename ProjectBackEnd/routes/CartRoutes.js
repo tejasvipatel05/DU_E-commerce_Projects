@@ -1,46 +1,42 @@
 const express = require('express');
-
-const { Cart } = require('../model/Cart');
-const { User } = require('../model/User')
 const router = express.Router();
+const cartController = require('../controllers/cartController');
+const { authenticate, authorize  } = require('../middleware/authMiddleware');
+
+// Get the logged-in customer's cart
+router.get('/me', authenticate, authorize('customer'), cartController.getMyCart);
+
+// Add a product to the customer's cart
+router.post('/me/products', authenticate, authorize('customer'), cartController.addProductToCart);
+
+// Update a product's quantity in the customer's cart
+router.put('/me/products/:productId', authenticate, authorize('customer'), cartController.updateProductInCart);
+
+// Remove a specific product from the customer's cart
+router.delete('/me/products/:productId', authenticate, authorize('customer'), cartController.removeProductFromCart);
+
+// Clear the entire cart for the logged-in customer
+router.delete('/me', authenticate, authorize('customer'), cartController.clearMyCart);
+
+// Apply a coupon to the cart
+router.post('/me/coupon', authenticate, authorize('customer'), cartController.applyCouponToCart);
+
+// Remove the applied coupon from the cart
+router.delete('/me/coupon', authenticate, authorize('customer'), cartController.removeCouponFromCart);
 
 
-//GET all carts
-router.get('/',async(req, res) => {
-    const data = await Cart.find();
-    res.send(data);
-})
 
-//PATCH Cart
-router.patch('/:id', async (req, res) => {
-    const data = await Cart.findByIdAndUpdate(req.params.id, req.body);
-    res.send(data);
-})
+// Get all carts in the system
+router.get('/', authenticate, authorize('admin'), cartController.getAllCarts);
 
-//DELETE Cart
-router.delete('/:id', async (req, res) => {
-    const data = await Cart.findByIdAndDelete(req.params.id);
-    res.send(data);
-})
+// Get a specific user's cart
+router.get('/:userId', authenticate, authorize('admin'), cartController.getCartByUserId);
 
-//GET product from user's cart
-router.get('/order', async(req, res)=>{
-    const { user_id } = {user_id : '67a65d46a89626213a5009ba'}
-    // const cart =  await Cart.findOne({user_id})
-    // res.send(cart)
-    
-    const user = await User.findOne({ _id: user_id })
-    // .populate('cart_id')
-    
-    const cart = await Cart.findOne({_id: user.cart_id})
-    // .populate('products.product_id')
-    res.send(cart);
-})
+// Update a specific user's cart
+router.put('/:userId', authenticate, authorize('admin'), cartController.updateCartByUserId);
 
-//GET Cart by id
-router.get('/:id', async (req, res) => {
-    const data = await Cart.findById(req.params.id);
-    res.send(data);
-})
+// Delete a specific user's cart
+router.delete('/:userId', authenticate, authorize('admin'), cartController.deleteCartByUserId);
+
 
 module.exports = router;

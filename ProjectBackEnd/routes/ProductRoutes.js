@@ -1,36 +1,23 @@
 const express = require('express');
 
-const {Product} = require('../model/Product');
+const { authenticate, authorize } = require("../middleware/authMiddleware");
 const router = express.Router();
+const productController = require('../controllers/productController');
 
-//GET all products
-router.get('/',async(req, res) => {
-    const data = await Product.find();
-    res.send(data);
-})
 
-//GET Product by id
-router.get('/:id', async (req, res) => {
-    const data = await Product.findById(req.params.id);
-    res.send(data);
-})
+// Public routes (view/search)
+router.get('/', productController.getAllProducts);
+router.get('/search', productController.searchProducts);
+router.get('/:id', productController.getProductById);
+router.get('/category/:categoryId', productController.getProductsByCategory);
+router.get('/discount/:discountId', productController.getProductsByDiscount);
 
-//POST Product
-router.post('/', async (req, res) => {
-    const data = await Product.create(req.body);
-    res.send(data);
-})
+// Protected routes (create, update, delete)
+router.post('/', authenticate, authorize('admin'), productController.createProduct);
+router.put('/:id', authenticate, authorize('admin'), productController.updateProduct);
+router.delete('/:id', authenticate, authorize('admin'), productController.deleteProduct);
 
-//PATCH Product
-router.patch('/:id', async (req, res) => {
-    const data = await Product.findByIdAndUpdate(req.params.id, req.body);
-    res.send(data);
-})
-
-//DELETE Product
-router.delete('/:id', async (req, res) => {
-    const data = await Product.findByIdAndDelete(req.params.id);
-    res.send(data);
-})
+// Seller-specific route: A seller can only view their own products unless admin.
+router.get('/seller/:sellerId', authenticate, authorize('seller'), productController.getProductsBySeller);
 
 module.exports = router;

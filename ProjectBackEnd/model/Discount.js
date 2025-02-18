@@ -9,6 +9,6 @@ const DiscountSchema = new mongoose.Schema({
     value: { type: Number, required: true },
     expiration_date: { type: Date, required: true },
     is_active: { type: Boolean, default: true }
-});
+}, { timestamps: true });
 
 module.exports.Discount = mongoose.model('Discount', DiscountSchema) 

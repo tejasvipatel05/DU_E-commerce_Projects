@@ -1,38 +1,21 @@
 const express = require('express');
-
-const {Order} = require('../model/Order');
-const {User} = require('../model/User');
-const {Cart} = require('../model/Cart')
+const orderController = require('../controllers/orderController');
+const { authenticate, authorize } = require('../middleware/authMiddleware');
 const router = express.Router();
 
-//GET all orders
-router.get('/',async(req, res) => {
-    const data = await Order.find();
-    res.send(data);
-})
+router.get('/me', authenticate, authorize('customer'), orderController.getMyOrders);
+router.get('/me/:orderId', authenticate, authorize('customer'), orderController.getOrderByIdForCustomer);
+router.post('/', authenticate, authorize('customer'), orderController.createOrder);
+router.put('/me/:orderId', authenticate, authorize('customer'), orderController.updateOrderForCustomer);
+router.delete('/me/:orderId', authenticate, authorize('customer'), orderController.deleteOrderForCustomer);
 
-//GET Order by id
-router.get('/:id', async (req, res) => {
-    const data = await Order.findById(req.params.id);
-    res.send(data);
-})
+router.get('/seller', authenticate, authorize('seller'), orderController.getOrdersForSeller);
+router.get('/seller/:orderId', authenticate, authorize('seller'), orderController.getOrderByIdForSeller);
 
-//POST Order
-router.post('/', async (req, res) => {
-    const data = await Order.create(req.body);
-    res.send(data);
-})
+router.get('/admin', authenticate, authorize('admin'), orderController.getAllOrders);
+router.get('/admin/:orderId', authenticate, authorize('admin'), orderController.getOrderByIdForAdmin);
+router.put('/admin/:orderId', authenticate, authorize('admin'), orderController.updateOrder);
+router.delete('/admin/:orderId', authenticate, authorize('admin'), orderController.deleteOrder);
 
-//PATCH Order
-router.patch('/:id', async (req, res) => {
-    const data = await Order.findByIdAndUpdate(req.params.id, req.body);
-    res.send(data);
-})
-
-//DELETE Order
-router.delete('/:id', async (req, res) => {
-    const data = await Order.findByIdAndDelete(req.params.id);
-    res.send(data);
-})
 
 module.exports = router;

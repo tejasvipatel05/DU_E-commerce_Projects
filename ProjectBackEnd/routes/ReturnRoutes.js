@@ -1,36 +1,22 @@
 const express = require('express');
 
-const {Return} = require('../model/Return');
+const { authenticate, authorize } = require('../middleware/authMiddleware');
+const { createReturnRequest, getUserReturns, getReturnById, updateReturnRequest, getAllReturnProduct } = require('../controller/returnProductController');
 const router = express.Router();
 
-//GET all return products details
-router.get('/',async(req, res) => {
-    const data = await Return.find();
-    res.send(data);
-})
+//GET all return details
+router.get('/', authenticate, authorize("getAllReturnProduct"), getAllReturnProduct)
+
+//GET return product
+router.get('/product', authenticate, authorize("getUserReturns"), getUserReturns)
 
 //GET return detail by id
-router.get('/:id', async (req, res) => {
-    const data = await Return.findById(req.params.id);
-    res.send(data);
-})
+router.get('/:id', authenticate, authorize("getReturnById"), getReturnById)
 
 //POST return detail
-router.post('/', async (req, res) => {
-    const data = await Return.create(req.body);
-    res.send(data);
-})
+router.post('/', authenticate, authorize("createReturnRequest"), createReturnRequest);
 
-//PATCH return detail
-router.patch('/:id', async (req, res) => {
-    const data = await Return.findByIdAndUpdate(req.params.id, req.body);
-    res.send(data);
-})
-
-//DELETE return detail
-router.delete('/:id', async (req, res) => {
-    const data = await Return.findByIdAndDelete(req.params.id);
-    res.send(data);
-})
+//PATCH(update) return detail
+router.patch('/:id', authenticate, authorize("updateReturnRequest"), updateReturnRequest)
 
 module.exports = router;

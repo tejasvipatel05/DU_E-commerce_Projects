@@ -1,7 +1,12 @@
 const roles = {
-    admin: ['getAllUsers', 'getUserById', 'updateUser', 'deleteUser', 'getAllCategories', 'getCategoryById', 'createCategory', 'updateCategory', 'deleteCategory'],
-    seller: ['createProduct', 'updateProduct'],
-    customer: ['viewProducts', 'buyProduct']
+
+    admin: ['getAllUsers', 'getUserById', 'updateUser', 'deleteUser', 'createCategory', 'updateCategory', 'deleteCategory', 'getMyWishlist', 'addProductToWishlist', 'removeProductFromWishlist', 'updateMyWishlist', 'getAllWishlists', 'getWishlistByUserId', 'updateWishlistByUserId', 'deleteWishlistByUserId', 'getWishlistsByProduct', 'createProduct', 'updateProduct', 'deleteProduct', 'getAllProducts', 'getProductById', 'getProductsByCategory', 'getProductsByDiscount', 'searchProducts', 'getAllCarts', 'getCartByUserId', 'updateCartByUserId', 'deleteCartByUserId','createCoupon','updateCoupon','deleteCoupon','getAllDiscounts','getDiscountById','getDiscountsByProduct','getDiscountsByCategory','getAllOrders','getOrderByIdForAdmin','updateOrder','deleteOrder','deleteReview','updateReview','createReview','getAllReviews','getReviewById','getReviewsByProduct','getReviewsByUser','getAllReviews','getReviewById','getReviewsByProduct','getReviewsByUser','createReview','updateReview','deleteReview'],
+
+
+    seller: ['createProduct', 'updateProduct', 'getAllCategories', 'getCategoryById', 'getWishlistsByProduct', 'getProductsBySeller', 'getAllProducts', 'getProductById', 'getProductsByCategory', 'getProductsByDiscount', 'searchProducts','getAllDiscounts','getDiscountById','getDiscountsByProduct','getDiscountsByCategory','createDiscount','updateDiscount','deleteDiscount','getOrdersForSeller','getOrderByIdForSeller','getAllReviews','getReviewById','getReviewsByProduct','getReviewsByUser','getReviewsForSeller','getAllReviews','getReviewById','getReviewsByProduct','getReviewsByUser','getReviewsForSeller'],
+
+
+    customer: ['viewProducts', 'buyProduct', 'getAllCategories', 'getCategoryById', 'getMyWishlist', 'addProductToWishlist', 'removeProductFromWishlist', 'updateMyWishlist', 'getAllProducts', 'getProductById', 'getProductsByCategory', 'getProductsByDiscount', 'searchProducts', 'getMyCart', 'addProductToCart', 'updateProductInCart', 'removeProductFromCart', 'clearMyCart','applyCouponToCart','removeCouponFromCart','getAllCoupons','getCouponById','getAllDiscounts','getDiscountById','getDiscountsByProduct','getDiscountsByCategory','getMyOrders','getOrderByIdForCustomer','createOrder','updateOrderForCustomer','deleteOrderForCustomer','createCODPayment','deleteReview','updateReview','createReview','getAllReviews','getReviewById','getReviewsByProduct','getReviewsByUser','getAllReviews','getReviewById','getReviewsByProduct','getReviewsByUser','createReview','updateReview','deleteReview']
 };
 
 module.exports = roles;

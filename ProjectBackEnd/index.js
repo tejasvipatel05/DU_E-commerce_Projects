@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 const connectDB = require('./config/db');
 
+// const adminRoutes = require('./routes/adminRoutes');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/UserRoutes');
 const cartRoutes = require('./routes/CartRoutes');
@@ -16,12 +17,12 @@ const orderRoutes = require('./routes/OrderRoutes');
 const returnRoutes = require('./routes/ReturnRoutes');
 const wishlistRoutes = require('./routes/WishlistRoutes');
 
-
 const app = express();
 app.use(bodyParser.json());
 
 connectDB();
     
+// app.use('/admin', adminRoutes);
 app.use('/auth', authRoutes);
 app.use('/user',userRoutes);
 app.use('/cart',cartRoutes);

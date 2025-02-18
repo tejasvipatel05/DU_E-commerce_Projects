@@ -55,11 +55,6 @@ const updateUser = async (req, res) => {
 // };
 const deleteUser = async (req, res) => {
     try {
-        // Check if the logged-in user is an admin
-        if (req.user.role !== 'admin') {
-            return res.status(403).json({ message: "Access denied. Only admins can delete users." });
-        }
-
         const userId = req.params.id;
         const user = await User.findById(userId);
 
@@ -75,6 +70,5 @@ const deleteUser = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
-
 
 module.exports = { getAllUsers, getUserById, updateUser, deleteUser };

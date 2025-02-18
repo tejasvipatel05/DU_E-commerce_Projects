@@ -10,11 +10,10 @@ const OrderSchema = new mongoose.Schema({
         price_at_purchase: { type: Number, required: true },
         order_status: { type: String, enum: ['Pending', 'Shipped', 'Delivered', 'Cancelled'], default: 'Pending' }
     }],
+    orderDate: {type: Date, default: Date.now() },
+    deliverydate: {type: Date},
     total_amount: { type: Number, required: true },
     shipping_address: String,
-    coupon_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Coupon', required: true },
-    created_at: { type: Date, default: Date.now },
-    updated_at: { type: Date, default: Date.now }
-});
+}, { timestamps: true });
 
 module.exports.Order = mongoose.model('Order', OrderSchema);
