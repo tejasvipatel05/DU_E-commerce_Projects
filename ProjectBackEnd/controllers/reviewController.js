@@ -2,7 +2,7 @@ const {Review} = require('../model/Review');
 const {Product} = require('../model/Product');
 
 //GET ALL review
-exports.getAllReviews = async (req, res) => {
+const getAllReviews = async (req, res) => {
  try {
    const reviews = await Review.find()
      .populate('product_id')
@@ -14,7 +14,7 @@ exports.getAllReviews = async (req, res) => {
 };
 
 //GET review by ID
-exports.getReviewById = async (req, res) => {
+const getReviewById = async (req, res) => {
  try {
    const review = await Review.findById(req.params.id)
      .populate('product_id')
@@ -27,7 +27,7 @@ exports.getReviewById = async (req, res) => {
 };
 
 //GET ALL review for specific product
-exports.getReviewsByProduct = async (req, res) => {
+const getReviewsByProduct = async (req, res) => {
  try {
    const reviews = await Review.find({ product_id: req.params.productId })
      .populate('product_id')
@@ -39,7 +39,7 @@ exports.getReviewsByProduct = async (req, res) => {
 };
 
 //GET ALL review by specific Customer
-exports.getReviewsByUser = async (req, res) => {
+const getReviewsByUser = async (req, res) => {
  try {
    // If the logged-in user is a customer and not an admin, ensure they can only view their own reviews.
    if (req.user.role === 'customer' && req.user._id.toString() !== req.params.userId) {
@@ -55,7 +55,7 @@ exports.getReviewsByUser = async (req, res) => {
 };
 
 //Seller GET review for product owned
-exports.getReviewsForSeller = async (req, res) => {
+const getReviewsForSeller = async (req, res) => {
  try {
    // Find all products for which the seller is the owner.
    // Assuming the Product model has a seller_id field.
@@ -73,7 +73,7 @@ exports.getReviewsForSeller = async (req, res) => {
 };
 
 //create new review
-exports.createReview = async (req, res) => {
+const createReview = async (req, res) => {
  try {
    const { product_id, rating, comment } = req.body;
    
@@ -100,7 +100,7 @@ exports.createReview = async (req, res) => {
 };
 
 //Update review
-exports.updateReview = async (req, res) => {
+const updateReview = async (req, res) => {
  try {
    const review = await Review.findById(req.params.id);
    if (!review) return res.status(404).json({ message: 'Review not found' });
@@ -122,7 +122,7 @@ exports.updateReview = async (req, res) => {
 };
 
 //Delete Review
-exports.deleteReview = async (req, res) => {
+const deleteReview = async (req, res) => {
  try {
    const review = await Review.findById(req.params.id);
    if (!review) return res.status(404).json({ message: 'Review not found' });
@@ -139,5 +139,4 @@ exports.deleteReview = async (req, res) => {
  }
 };
 
-
-module.exports = {getAllReview, getAllReviewOfProduct, getReviewById, createReview, updateReview, deleteReview}
+module.exports = {getAllReviews,getReviewById,getReviewsByProduct,getReviewsByUser,getReviewsForSeller,createReview,updateReview,deleteReview }

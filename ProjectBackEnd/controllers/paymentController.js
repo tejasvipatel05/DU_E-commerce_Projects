@@ -2,7 +2,7 @@ const Payment = require("../model/Payment");
 const Order = require("../model/Order");
 
 //Cash on Delivery (COD) Payment
-const createCODPayment = async (req, res) => {
+exports.createCODPayment = async (req, res) => {
     try {
         const { order_id } = req.body;
 

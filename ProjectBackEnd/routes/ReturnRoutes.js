@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { authenticate, authorize } = require('../middleware/authMiddleware');
-const { createReturnRequest, getUserReturns, getReturnById, updateReturnRequest, getAllReturnProduct } = require('../controller/returnProductController');
+const { createReturnRequest, getUserReturns, getReturnById, updateReturnRequest, getAllReturnProduct } = require('../controllers/returnController');
 const router = express.Router();
 
 //GET all return details

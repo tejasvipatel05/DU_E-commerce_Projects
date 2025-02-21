@@ -23,12 +23,14 @@ const authenticate = (req, res, next) => {
 };
 
 const authorize = (action) => (req, res, next) => {
+
     const userRole = req.user.role;
     if(!roles[userRole] || !roles[userRole].includes(action)) {
         return res.status(403).json({ message: "Access Denied for authorize" });
     }
     next();
-};
+}
+
 
 const verifyAdmin = async (req, res, next) => {
     try {

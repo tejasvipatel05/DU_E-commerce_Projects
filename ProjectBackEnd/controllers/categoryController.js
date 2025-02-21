@@ -1,7 +1,7 @@
 const { Category } = require('../model/Category');
 
 //GET all categories
-exports.getAllCategories = async (req, res) => {
+const getAllCategories = async (req, res) => {
     try {
         const categories = await Category.find();
         return res.status(200).json(categories);
@@ -11,7 +11,7 @@ exports.getAllCategories = async (req, res) => {
 };
 
 //GET category by id
-exports.getCategoryById = async (req, res) => {
+const getCategoryById = async (req, res) => {
     try {
         const category = await Category.findById(req.params.id);
         if (!category) return res.status(404).json({ message: 'Category not found' });
@@ -22,7 +22,7 @@ exports.getCategoryById = async (req, res) => {
 };
 
 //Create category
-exports.createCategory = async (req, res) => {
+const createCategory = async (req, res) => {
     try {
         const {categoryData} = req.body;
         const category_name = categoryData.category_name;
@@ -57,7 +57,7 @@ exports.createCategory = async (req, res) => {
 };
 
 //Update category
-exports.updateCategory = async (req, res) => {
+const updateCategory = async (req, res) => {
     try {
         const updateData = req.body;
         if (req.file) {
@@ -79,7 +79,7 @@ exports.updateCategory = async (req, res) => {
 }
 
 //Delete category
-exports.deleteCategory = async (req, res) => {
+const deleteCategory = async (req, res) => {
     try {
         const deletedcategory = await Category.findById(req.params.id);
 
@@ -95,3 +95,5 @@ exports.deleteCategory = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
+
+module.exports = {getAllCategories,getCategoryById,createCategory,updateCategory,deleteCategory}

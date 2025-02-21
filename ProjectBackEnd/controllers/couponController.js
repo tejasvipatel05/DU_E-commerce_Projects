@@ -1,22 +1,39 @@
-const Coupon = require('../model/Coupon');
+const {Coupon} = require('../model/Coupon');
 
 //GET all Coupons
 exports.getAllCoupons = async (req, res) => {
+    // try {
+    //   let query = {};
+    //   console.log(req.user);
+      
+    //   // For customers and sellers, only show active and non-expired coupons.
+    //   if (req.user.role === 'customer' || req.user.role === 'seller') {
+    //     query = { 
+    //       is_active: true, 
+    //       expiration_date: { $gt: new Date() } 
+    //     };
+    //   }
+    //   console.log(query);
+      
+    //   const coupons = await Coupon.find({query});
+    //   res.json(coupons);
+    // } catch (error) {
+    //   res.status(500).json({ message: 'Error fetching coupons', error });
+    // }
     try {
-      let query = {};
-      // For customers and sellers, only show active and non-expired coupons.
-      if (req.user.role === 'customer' || req.user.role === 'seller') {
-        query = { 
-          is_active: true, 
-          expiration_date: { $gt: new Date() } 
-        };
+      const coupons = await Coupon.find();
+      if (!coupons) {
+          res.status(404).json({ message: "Coupon not found" });
       }
-      const coupons = await Coupon.find(query);
-      res.json(coupons);
-    } catch (error) {
-      res.status(500).json({ message: 'Error fetching coupons', error });
-    }
+      res.status(200).json(coupons);
+  } catch (error) {
+      res.status(500).json({ message: "Internal Server Error", error: error.message });
+  }
 };
+
+const getAllCoupon = async (req, res) => {
+  
+}
 
 //Get Coupon By ID
 exports.getCouponById = async (req, res) => {

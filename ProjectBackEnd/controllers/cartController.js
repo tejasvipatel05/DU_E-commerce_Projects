@@ -3,7 +3,7 @@ const {User} = require('../model/User');
 const {Coupon} = require('../model/Coupon');
 
 //GET customer's own cart
-exports.getMyCart = async (req, res) => {
+const getMyCart = async (req, res) => {
     try {
       const user = req.user;
       if (!user.cart_id) {
@@ -20,7 +20,7 @@ exports.getMyCart = async (req, res) => {
 };
 
 //Add product to customer's cart
-exports.addProductToCart = async (req, res) => {
+const addProductToCart = async (req, res) => {
     try {
       const { product_id, seller_id, quantity } = req.body;
       const userId = req.user._id;
@@ -61,7 +61,7 @@ exports.addProductToCart = async (req, res) => {
 };
 
 //Update quantity of product in cart
-exports.updateProductInCart = async (req, res) => {
+const updateProductInCart = async (req, res) => {
     try {
       const { quantity } = req.body;
       const { productId } = req.params;
@@ -88,7 +88,7 @@ exports.updateProductInCart = async (req, res) => {
 };
 
 //Remove Specific product from cart
-exports.removeProductFromCart = async (req, res) => {
+const removeProductFromCart = async (req, res) => {
     try {
       const { productId } = req.params;
       const user = req.user;
@@ -107,7 +107,7 @@ exports.removeProductFromCart = async (req, res) => {
 };
 
 //customer clears own cart
-exports.clearMyCart = async (req, res) => {
+const clearMyCart = async (req, res) => {
     try {
       const user = req.user;
       if (!user.cart_id) {
@@ -124,7 +124,7 @@ exports.clearMyCart = async (req, res) => {
 };
 
 //Apply Coupon to cart
-exports.applyCouponToCart = async (req, res) => {
+const applyCouponToCart = async (req, res) => {
   try {
     const { couponCode } = req.body;
     if (!couponCode) {
@@ -163,7 +163,7 @@ exports.applyCouponToCart = async (req, res) => {
 };
 
 //Remove applied coupon from cart
-exports.removeCouponFromCart = async (req, res) => {
+const removeCouponFromCart = async (req, res) => {
   try {
     const user = req.user;
     if (!user.cart_id) {
@@ -179,7 +179,7 @@ exports.removeCouponFromCart = async (req, res) => {
 };
 
 //GETALL cart
-exports.getAllCarts = async (req, res) => {
+const getAllCarts = async (req, res) => {
     try {
       const carts = await Cart.find().populate('products.product_id products.seller_id');
       res.json(carts);
@@ -189,7 +189,7 @@ exports.getAllCarts = async (req, res) => {
 };
 
 //GET cart for specific customer
-exports.getCartByUserId = async (req, res) => {
+const getCartByUserId = async (req, res) => {
     try {
       const { userId } = req.params;
       const user = await User.findById(userId);
@@ -204,7 +204,7 @@ exports.getCartByUserId = async (req, res) => {
 };
 
 //Update specific Customer's cart
-exports.updateCartByUserId = async (req, res) => {
+const updateCartByUserId = async (req, res) => {
     try {
       const { userId } = req.params;
       const { products } = req.body; // expect an array of products
@@ -224,7 +224,7 @@ exports.updateCartByUserId = async (req, res) => {
 };
 
 //Delete Specific customer's cart
-exports.deleteCartByUserId = async (req, res) => {
+const deleteCartByUserId = async (req, res) => {
     try {
       const { userId } = req.params;
       const user = await User.findById(userId);
@@ -239,3 +239,5 @@ exports.deleteCartByUserId = async (req, res) => {
       res.status(500).json({ message: 'Error deleting cart', error });
     }
 };
+
+module.exports = {getMyCart, addProductToCart, updateProductInCart, removeProductFromCart,clearMyCart, applyCouponToCart, removeCouponFromCart, getAllCarts,getCartByUserId,updateCartByUserId,deleteCartByUserId}

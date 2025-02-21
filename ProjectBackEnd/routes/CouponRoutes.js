@@ -4,7 +4,7 @@ const couponController = require('../controllers/couponController');
 const router = express.Router();
 const { authenticate, authorize } = require('../middleware/authMiddleware');
 
-router.get('/', authenticate, authorize('customer'), couponController.getAllCoupons);
+router.get('/', authenticate, authorize('getAllCoupons'), couponController.getAllCoupons);
 router.get('/:id', authenticate, authorize('customer'), couponController.getCouponById);
 
 

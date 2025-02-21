@@ -124,5 +124,3 @@ exports.getProductsBySeller = async (req, res) => {
       res.status(500).json({ message: 'Error fetching seller products', error });
     }
   };
-
-module.exports = {getAllProduct, getProductById, createProduct, updateProduct, deleteProduct};
