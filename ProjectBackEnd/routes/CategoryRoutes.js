@@ -6,7 +6,8 @@ const upload = multer({ storage: multer.memoryStorage() });
 const {getAllCategories,getCategoryById,createCategory,updateCategory,deleteCategory} = require('../controllers/categoryController');
 const { authenticate, authorize } = require('../middleware/authMiddleware');
 
-router.get('/', authenticate, authorize('getAllCategories'), getAllCategories);
+// router.get('/', authenticate, authorize('getAllCategories'), getAllCategories);
+router.get('/', getAllCategories);
 router.get('/:id', authenticate, authorize('getCategoryById'), getCategoryById);
 
 

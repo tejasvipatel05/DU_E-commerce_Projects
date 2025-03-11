@@ -22,28 +22,38 @@ const getMyCart = async (req, res) => {
 //Add product to customer's cart
 const addProductToCart = async (req, res) => {
     try {
+
+        if (!req.user) {
+            return res.status(401).json({ message: "Unauthorized: User not found" });
+        }
+
       const { product_id, seller_id, quantity } = req.body;
-      const userId = req.user._id;
-  
+      const userId = req.user.user_id;
+
       // Fetch the user document
-      const user = await User.findById(userId);
+      let user = await User.findById(userId);
+      if(!user){
+        return res.status(404).json({ message: "User not found" });
+      }
+
       let cart;
-  
       // Create a new cart if none exists
       if (!user.cart_id) {
         cart = new Cart({ products: [] });
+
         await cart.save();
         user.cart_id = cart._id;
         await user.save();
       } else {
         cart = await Cart.findById(user.cart_id);
       }
-  
+      
       // Check if product already exists in the cart (match product_id & seller_id)
       const index = cart.products.findIndex(item =>
         item.product_id.toString() === product_id &&
         item.seller_id.toString() === seller_id
       );
+      
   
       if (index > -1) {
         // Increase quantity if product exists
@@ -54,7 +64,7 @@ const addProductToCart = async (req, res) => {
       }
   
       await cart.save();
-      res.status(200).json(cart);
+      res.status(200).json({ message: "Product added to cart", cart });
     } catch (error) {
       res.status(500).json({ message: 'Error adding product to cart', error });
     }

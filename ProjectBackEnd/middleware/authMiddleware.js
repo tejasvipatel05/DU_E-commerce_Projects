@@ -3,10 +3,35 @@ const roles = require('../config/roles');
 const User = require("../model/User")
 
 //Middleware to verify JWT Token
+// const authenticate = async (req, res, next) => {
+//     console.log("Headers:",req.headers);
+    
+//     const token = req.headers["authorization"];
+//     console.log("token:",token);
+    
+//     if(!token) {
+//         return res.status(401).json({ message: "Access Denied for authentication" });
+//     }
+
+//     try {
+//         const decoded = jwt.verify(token.split(" ")[1], process.env.SECRET_KEY);
+//         const user = await User.findById(decoded.userId); // Fetch user from DB
+
+//         if (!user) {
+//             return res.status(404).json({ message: "User not found" });
+//         }
+
+//         req.user = user;  // Attach full user to request
+//         next();
+//     } catch (error) {
+//         res.status(400).json({ message: "Invalid Token" });
+//     }
+// };
+
 const authenticate = (req, res, next) => {
     console.log(req.headers);
     
-    const token = req.headers["value"];
+    const token = req.headers["authorization"];
     console.log("token:",token);
     
     if(!token) {
@@ -16,6 +41,7 @@ const authenticate = (req, res, next) => {
     try {
         const decoded = jwt.verify(token.split(" ")[1], process.env.SECRET_KEY);
         req.user = decoded;  //to store user data in request
+        console.log(decoded);
         next();
     } catch (error) {
         res.status(400).json({ message: "Invalid Token" });

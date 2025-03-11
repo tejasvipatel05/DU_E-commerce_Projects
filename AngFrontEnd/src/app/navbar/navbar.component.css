@@ -1,0 +1,13 @@
+.hstyle {
+    color: #071831; /* Apply text color */
+  }
+  
+  .hstyle a,
+  .hstyle svg {
+    color: #071831; /* Apply color to links and icons */
+  }
+  
+  .hstyle a:hover,
+  .hstyle svg:hover {
+    color: #7096D1; /* Optional: Change color on hover for better UX */
+  }

@@ -1,0 +1,27 @@
+.product-card {
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  .card-img-top {
+    height: 220px; /* Ensures uniform image size */
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  
+  @media (max-width: 768px) {
+    .section-title {
+      text-align: center;
+    }
+  
+    .text-md-end {
+      text-align: center !important;
+    }
+  }
+  

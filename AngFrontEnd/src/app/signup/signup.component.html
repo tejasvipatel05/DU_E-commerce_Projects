@@ -1,0 +1,77 @@
+<!-- Navigation Header -->
+<header class="nav-header">
+    <div class="logo-container">
+        <img src="images/glowvana-logo-trans-1.png" alt="Logo" class="logo">
+    </div>
+</header>
+
+<div class="container">
+    <div class="grid-container">
+        <section id="back-div" class="gradient-bg">
+            <div class="card">
+                <h1 class="title pb-4">Sign up</h1>
+                <form (submit)="onSubmit()" class="form" [formGroup]="signupForm">
+                    <div>
+                        <!-- <label for="full_name">Full Name</label> -->
+                        <input type="full_name" class="input" placeholder="Full Name" formControlName="full_name" />
+                        <div *ngIf="signupForm.get('full_name')?.errors?.['required'] && signupForm.get('full_name')?.touched" class="error"
+                            >Please Enter Valid Name.</div>
+
+                        <div *ngIf="signupForm.get('full_name')?.errors?.['minlength']" >
+                            Must contain at least 3 characters.</div>
+                    </div>
+                    <!-- <div>
+                        <label for="nick_name">Nickname</label>
+                        <input type="nick_name" class="input" placeholder="" formControlName="nick_name" />
+                        <div *ngIf="signupForm.get('nick_name')?.errors?.['required'] && signupForm.get('nick_name')?.touched" class="error"
+                            >Please Enter Valid Email Address.</div>
+
+                        <div *ngIf="signupForm.get('nick_name')?.errors?.['pattern']">
+                            Email Address should be valid.</div>
+                    </div> -->
+                    <div>
+                        <!-- <label for="email">Email</label> -->
+                        <input type="email" class="input" placeholder="Email" formControlName="email" />
+                        <div *ngIf="signupForm.get('email')?.errors?.['required'] && signupForm.get('email')?.touched" class="error"
+                            >Please Enter Valid Email Address.</div>
+
+                        <div *ngIf="signupForm.get('email')?.errors?.['pattern']">
+                            Email Address should be valid.</div>
+                    </div>
+                    <div>
+                        <!-- <label for="phone_number">Contact</label> -->
+                        <input type="tel" class="input" placeholder="Contact" formControlName="phone_number" />
+                        <div *ngIf="signupForm.get('phone_number')?.errors?.['required'] && signupForm.get('phone_number')?.touched" class="error"
+                            >Please Enter Valid Contact.</div>
+
+                        <div *ngIf="signupForm.get('phone_number')?.errors?.['pattern']">
+                            Contact should be valid.</div>
+                    </div>
+                    <div>
+                        <!-- <label for="password">Password</label> -->
+                        <input type="password" class="input" placeholder="Password" formControlName="password" />
+                        <div *ngIf="signupForm.get('password')?.errors?.['required'] && signupForm.get('password')?.touched" class="error"
+                            >Please Enter Valid Password.</div>
+
+                        <!-- <div *ngIf="signupForm.get('password')?.errors?.['pattern']" >
+                            Must contain at least one number, one uppercase, lowercase letter, and at least 8 characters.</div> -->
+                    </div>
+                    
+                    <div>
+                        <!-- <label for="confirmpassword">Confirm Password</label> -->
+                        <input type="confirmpassword" class="input" placeholder="Confirm Password" formControlName="confirmpassword" />
+                        <div *ngIf="signupForm.get('confirmpassword')?.errors?.['required'] && signupForm.get('confirmpassword')?.touched" class="error"
+                            >Please Enter Valid Password.</div>
+
+                        <!-- <div *ngIf="signupForm.get('confirmpassword')?.errors?.['pattern']" >
+                            Must contain at least one number, one uppercase, lowercase letter, and at least 8 characters.</div> -->
+                    </div>
+                    <button type="submit" class="signup-btn">SIGN UP</button>
+                </form>
+                <div class="login">
+                    <p>Already have an acount ? <a class="nav-link" routerLink="/login">Log in</a></p>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

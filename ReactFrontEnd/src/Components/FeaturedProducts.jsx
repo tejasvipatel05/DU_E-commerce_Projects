@@ -1,0 +1,41 @@
+import React, { useEffect, useState } from "react";
+
+const FeaturedProducts = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:1005/product/featured")
+      .then(res => res.json())
+      .then(data => setProducts(data))
+      .catch(error => console.error("Error fetching featured products:", error));
+  }, []);
+
+  return (
+      <div className="row">
+        {products.length > 0 ? (
+          products.map((product) => (
+            <div key={product._id} className="col-md-4 col-lg-3 mb-4">
+              <div className="card shadow-sm h-100">
+                <img
+                  src={product.product_img}
+                  className="card-img-top"
+                  alt={product.name}
+                  style={{ height: "200px", objectFit: "cover" }}
+                />
+                <div className="card-body text-center">
+                  <h5 className="card-title">{product.name}</h5>
+                  <p className="card-text text-muted">{product.category_name}</p>
+                  <p className="fw-bold text-primary">${product.final_price}</p>
+                  <button className="btn btn-outline-primary w-100">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className="text-center">No featured products found.</p>
+        )}
+      </div>
+  );
+};
+
+export default FeaturedProducts;

@@ -1,0 +1,38 @@
+<!-- Navigation Header -->
+<header class="nav-header">
+    <div class="logo-container">
+        <img src="images/glowvana-logo-trans-1.png" alt="Logo" class="logo">
+    </div>
+</header>
+
+<div class="container">
+    <div class="grid-container">
+        <section id="back-div" class="gradient-bg">
+            <div class="card">
+                <h1 class="title pb-4">Log in</h1>
+                <form (submit)="onSubmit()" class="form" [formGroup]="loginForm">
+                    <div>
+                        <!-- <label for="email">Email</label> -->
+                        <input class="input" type="email" placeholder="Email" formControlName="email" />
+                        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error">
+                            Please enter a valid email.
+                        </div>
+                    </div>
+                    <div>
+                        <!-- <label for="password">Password</label> -->
+                        <input class="input" type="password" placeholder="Password" formControlName="password" />
+                        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+                            class="error">
+                            Password is required (minimum 6 characters).
+                        </div>
+                    </div>
+                    <a href="#" class="forgot-password">Forget your password?</a>
+                    <button type="submit" class="login-btn">LOG IN</button>
+                </form>
+                <div class="signup">
+                    <p>Don't have an account? <a class="nav-link" routerLink="/signup">Sign up</a></p>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

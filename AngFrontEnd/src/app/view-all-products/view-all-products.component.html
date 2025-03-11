@@ -1,0 +1,57 @@
+<section class="py-5 overflow-hidden">
+    <div class="container-lg">
+        <div class="row align-items-center mb-4">
+            <div class="col-12 col-md-6">
+                <h2 class="section-title">All Products</h2>
+            </div>
+            <div class="col-12 col-md-auto text-md-end text-center">
+                <a href="#" class="btn btn-outline-warning">Back to Home</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4" *ngFor="let product of products">
+              <div class="card product-card pt-4">
+                <img src={{product.product_img[0]}} (click)="goToProductDetails(product._id)" class="card-img-top"
+                alt="{{product.product_name}}">
+                <div class="card-body">
+                        <h5 class="card-title">{{ product.product_name }}</h5>
+                        <p class="card-text">Price: ₹{{ product.price }}</p>
+                        <p class="card-text">Stock: {{ product.stock_quantity }}</p>
+                    </div>
+                    <button (click)="addToCart(product._id,product.seller_id)" class="btn btn-success w-100">Add to
+                        Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- <section class="py-5 overflow-hidden">
+    <div class="container-lg">
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <h2 class="section-title">All Products</h2>
+        </div>
+        <div class="col-12 col-md-auto text-md-end">
+          <a routerLink="/" class="btn btn-outline-warning">Back to Home</a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4" *ngFor="let product of products">
+          <div class="card product-card">
+            <img [src]="product.product_img[0]" class="card-img-top" alt="{{ product.product_name }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ product.product_name }}</h5>
+              <p class="card-text">Price: ₹{{ product.price }}</p>
+              <p class="card-text">Stock: {{ product.stock_quantity }}</p>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section> -->

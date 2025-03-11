@@ -5,7 +5,7 @@ const { User } = require('../model/User');
 // User Registration
 const registerUser = async (req, res) => {
     try {
-        const { username, email, password, confirmpassword, first_name, last_name, phone_number, address, role, store_name, gst_number, bank_account } = req.body;
+        const { nick_name, email, password, confirmpassword, full_name, phone_number, role, store_name, gst_number, bank_account } = req.body;
 
         if (!email || !password || !confirmpassword) {
             return res.status(400).json({ message: "Email and Password are required" });
@@ -26,20 +26,19 @@ const registerUser = async (req, res) => {
         const hashedPW = await bcrypt.hash(password, 10);
 
         const newUser = new User({
-            username,
+            nick_name,
             email,
             password_hash: hashedPW,
-            first_name,
-            last_name,
+            full_name,
             phone_number,
-            address,
             role,
             seller_details: role === 'seller' ? { store_name, gst_number, bank_account } : undefined,
             cart_id: null,
             wishlist_id: null
         });
         await newUser.save();
-        res.status(201).json({ message: "User registered successfully", user_id: newUser._id });
+        const token = jwt.sign({ user_id: newUser._id, role: newUser.role }, process.env.SECRET_KEY, { expiresIn: "1h" });
+        res.status(201).json({ message: "User registered successfully", user_id: newUser._id, token: token });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Internal Server Error", error: error.message });

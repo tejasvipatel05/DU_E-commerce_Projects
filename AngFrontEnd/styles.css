@@ -13,6 +13,19 @@ This is main CSS file that contains custom style rules used in this template
 /*--------------------------------------------------------------
 /** VARIABLES
 --------------------------------------------------------------*/
+
+.poster-font-color {
+  color: #071831;
+  /* --poster-font-color: #071831; */
+}
+
+.my-glowvana-bg {
+  /* background: rgba(177, 201, 227, 0.5);  */
+  background-color: #F9FCFF;
+}
+
+/* b1c9e3 */
+
 body {
     --heading-font        : "Inter", sans-serif;
     --bs-link-color: #333;
@@ -30,7 +43,7 @@ body {
     --bs-body-line-height: 2;
     --bs-body-color: #747474;
   
-    --bs-primary: #6BB252;
+    --bs-primary: #7096D1;
     --bs-primary-rgb: 107, 178, 82;
     
     --bs-secondary: #364127;
@@ -52,7 +65,7 @@ body {
     --bs-btn-bg: var(--bs-primary);
     --bs-btn-border-color: transparent;
     --bs-btn-hover-color: #fff;
-    --bs-btn-hover-bg: #f7a422;
+    --bs-btn-hover-bg: #071831;
     --bs-btn-hover-border-color: transparent;
     --bs-btn-focus-shadow-rgb: 49,132,253;
     --bs-btn-active-color: #fff;
@@ -275,7 +288,7 @@ body {
     text-align: center;
     border-radius: 10px;
     --bs-btn-border-color: transparent;
-    --bs-btn-active-bg: #ec9b22;
+    --bs-btn-active-bg: #071831;
     --bs-btn-active-border-color: transparent;
     --bs-btn-hover-bg: var(--bs-primary);
     --bs-btn-hover-border-color: transparent;
@@ -290,12 +303,12 @@ body {
   
   /* category carousel */
   .category-carousel .category-item {
-    background: #FFFFFF;
-    border: 1px solid #FBFBFB;
+    /* background: #FFFFFF;
+    border: 1px solid #FBFBFB; */
     box-shadow: 0px 5px 22px rgba(0, 0, 0, 0.04);
     border-radius: 16px;
     text-align: center;
-    padding: 60px 20px;
+    padding: 60px 20px; 
     margin: 20px 0;
     transition: box-shadow 0.3s ease-out, transform 0.3s ease-out;
   }
@@ -310,13 +323,13 @@ body {
     letter-spacing: 0.02em;
     text-transform: capitalize;
     color: #222222;
-    margin-top: 20px;
+    /* margin-top: 20px; */
   }
   
   /* brand carousel */
   .brand-carousel .brand-item {
-    background: #FFFFFF;
-    border: 1px solid #FBFBFB;
+    /* background: #FFFFFF; */
+    /* border: 1px solid #FBFBFB; */
     box-shadow: 0px 5px 22px rgba(0, 0, 0, 0.04);
     border-radius: 16px;
     padding: 16px;

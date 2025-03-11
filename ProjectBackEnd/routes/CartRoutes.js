@@ -7,7 +7,8 @@ const { authenticate, authorize  } = require('../middleware/authMiddleware');
 router.get('/me', authenticate, authorize('getMyCart'), getMyCart);
 
 // Add a product to the customer's cart
-router.post('/me/products', authenticate, authorize('addProductToCart'), addProductToCart);
+// router.post('/me/products',addProductToCart);
+router.post('/me/products', authenticate,authorize('addProductToCart'), addProductToCart);
 
 // Update a product's quantity in the customer's cart
 router.put('/me/products/:productId', authenticate, authorize('updateProductInCart'), updateProductInCart);

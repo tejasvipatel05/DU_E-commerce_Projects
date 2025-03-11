@@ -1,0 +1,144 @@
+/* src/custom.css */
+:root {
+  --primary-accent: #FFC1CC;       /* Soft Pastel Pink */
+  --secondary-accent: #EADCF1;     /* Muted Lavender */
+  --cta: #B76E79;                /* Metallic Rose Gold */
+  --text-primary: #333333;       /* Dark Gray */
+  --blue-gradient-start: #E0F7FA;  /* Light blue for gradient start */
+  --blue-gradient-end: #81D4FA;    /* Brighter blue for gradient end */
+  --base-bg: #F9FCFF;
+}
+
+/* .bg-blue-gradient {
+  background: linear-gradient(135deg, var(--blue-gradient-start), var(--blue-gradient-end));
+} */
+
+.bg {
+    background: var(--base-bg);
+}  
+
+/* category carousel */
+.category-carousel .category-item {
+    /* background: #FFFFFF; */
+    /* border: 1px solid #FBFBFB; */
+    box-shadow: 0px 5px 22px rgba(0, 0, 0, 0.04);
+    border-radius: 16px;
+    text-align: center;
+    padding: 60px 20px;
+    margin: 20px 0;
+    transition: box-shadow 0.3s ease-out, transform 0.3s ease-out;
+  }
+  .category-carousel .category-item:hover {
+    transform: translate3d(0,-10px,0);
+    box-shadow: 0px 21px 44px rgba(0, 0, 0, 0.08);
+  }
+  .category-carousel .category-item .category-title {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 27px;
+    letter-spacing: 0.02em;
+    text-transform: capitalize;
+    color: #222222;
+    margin-top: 20px;
+  }
+
+.btn-cta {
+  background-color: var(--cta);
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+.bg-primary-accent {
+  background-color: var(--primary-accent);
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+/* .cls1{
+    background-image: url('images/glowvana-poster.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 550px;
+  }
+  
+  .cls2{
+    background: url('images/banner-ad-1.jpg') no-repeat; 
+    background-size: cover;
+  }
+  
+  .cls3{
+    background:url('images/banner-ad-2.jpg') no-repeat;
+    background-size: cover;
+  }
+  
+  .cls4{
+    background:url('images/banner-ad-3.jpg') no-repeat;
+    background-size: cover;
+  }
+  
+  .cls5{
+    background: url('images/banner-newsletter.jpg') no-repeat;
+    background-size: cover;
+  } */
+
+  
+.form-control{
+  display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    background-clip: padding-box;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: var(--bs-border-radius);
+    transition: border-color .15sease-in-out, box-shadow .15sease-in-out;
+}
+
+.form-control:focus{
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 .25rem rgba(207, 181, 214, 1);
+}
+
+.form-select {
+  --bs-form-select-bg-img: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e);
+  display: block;
+  width: 100%;
+  padding: .375rem 2.25rem .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
+  background-repeat: no-repeat;
+  background-position: right .75rem center;
+  background-size: 16px 12px;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  transition: border-color .15sease-in-out, box-shadow .15sease-in-out;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.form-select:focus {
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 .25rem rgba(207, 181, 214, 1);
+}

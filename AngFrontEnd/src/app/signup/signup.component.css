@@ -1,0 +1,188 @@
+/* Navigation Header */
+.nav-header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    background: #fff;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    height: 60px; /* Adjust based on your logo size */
+}
+
+/* Centering and Layout */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px);
+    width: 100%;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.grid-container {
+    display: grid;
+    gap: 20px;
+    max-width: 100%;
+}
+  
+  /* Background */
+  .gradient-bg {
+    width: 550px;
+    background: linear-gradient(to right, #7096D1, #071831);
+    border-radius: 20px;
+    padding: 20px;
+  }
+  
+  /* Card */
+  .card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Title */
+  .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: #071831;
+  }
+  
+  /* Form */
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  label {
+    color: #071831;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #d1d5db;
+    transition: all 0.3s;
+  }
+  
+  input:focus {
+    border: 2px solid #7096D1;
+    /* border-color: #7096D1; */
+    outline: none;
+  }
+  
+  /* Button */
+  .signup-btn {
+    width: 100%;
+    padding: 12px;
+    color: white;
+    background: linear-gradient(to right, #7096D1, #071831);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .signup-btn:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Login & Terms */
+  .login, .terms {
+    text-align: center;
+    font-size: 0.875rem;
+    margin-top: 10px;
+  }
+  
+  .login a, .terms a {
+    color: #071831;
+    text-decoration: none;
+  }
+  
+  .login a:hover, .terms a:hover {
+    text-decoration: underline;
+    color: #7096D1;
+  }
+  
+
+  /* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        min-height: calc(100vh - 100px);
+        padding: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .gradient-bg {
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    input {
+        padding: 10px;
+    }
+
+    .signup-btn {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        min-height: 100vh;
+        padding: 10px;
+    }
+
+    .title {
+        font-size: 1.8rem;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    label {
+        font-size: 0.9rem;
+    }
+
+    input {
+        padding: 8px;
+    }
+
+    .signup-btn {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .forgot-password {
+        font-size: 0.8rem;
+    }
+
+    .login, .terms {
+        font-size: 0.8rem;
+    }
+}
