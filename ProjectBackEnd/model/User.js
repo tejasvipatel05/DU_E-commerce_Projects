@@ -8,7 +8,11 @@ const UserSchema = new mongoose.Schema({
     nick_name: {type: String, default: null},
     profile_picture: {type: String},
     phone_number: {type: String, required: true, unique: true},
-    address: {type: String},
+    shippingDetails: {
+        address: {type: String},
+        city: {type: String},
+        postalCode: {type: Number}
+    },
     role: { type: String, enum: ['customer','admin','seller'], default:'customer'},
     seller_details: {
         store_name: {type: String},

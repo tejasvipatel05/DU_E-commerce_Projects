@@ -10,7 +10,7 @@ export class LoginService {
   constructor(private _http:HttpClient) { }
 
   login(email:any,password:any){
-    console.log("login post")
+    console.log("login post", email, password)
     return this._http.post(this.apiUrl, {email, password});
   }
 }

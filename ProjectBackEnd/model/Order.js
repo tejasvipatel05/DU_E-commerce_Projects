@@ -12,7 +12,11 @@ const OrderSchema = new mongoose.Schema({
     }],
     orderDate: {type: Date, default: Date.now() },
     total_amount: { type: Number, required: true },
-    shipping_address: String,
+    shippingDetails: {
+        address: {type: String},
+        city: {type: String},
+        postalCode: {type: Number}
+    },
 }, { timestamps: true });
 
 module.exports.Order = mongoose.model('Order', OrderSchema);

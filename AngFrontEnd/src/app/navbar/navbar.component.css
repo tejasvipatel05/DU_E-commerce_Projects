@@ -11,3 +11,11 @@
   .hstyle svg:hover {
     color: #7096D1; /* Optional: Change color on hover for better UX */
   }
+  .profile-img {
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 3px solid #ddd;
+  }
+  

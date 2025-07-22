@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import '../custom.css';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function GetAllCategory() {
     const apiURL = 'http://localhost:1005/category';
     const [data, setData] = useState([]);
+    const navigate = useNavigate();
     const token = localStorage.getItem('token')
 
     useEffect(() => {
+        if (!token || token === 'undefined') {
+            navigate('/login')
+        }
         fetch(apiURL, {
             method: 'GET',
             headers: {

@@ -1,0 +1,33 @@
+<div class="cart-container" *ngIf="cart.products && cart.products?.length">
+  <h2>Your Cart</h2>
+
+  <div *ngFor="let item of cart.products" class="cart-item">
+    <img [src]="item.product_id.product_img" alt="{{ item.product_id.product_name }}" class="product-image" />
+
+    <div class="product-details">
+      <p class="product-name">{{ item.product_id.product_name }}</p>
+      <p>
+        <span>₹{{ item.product_id.price }}</span>
+      </p>
+    </div>
+
+    <div class="quantity">
+      <button class="btn btn-primary" (click)="decreaseQuantity(item.product_id._id, item.quantity)">-</button>
+      <span>{{ item.quantity }}</span>
+      <button class="btn btn-primary" (click)="increaseQuantity(item.product_id._id, item.quantity)">+</button>
+    </div>
+
+    <button class="btn btn-primary ms-3" (click)="removeProduct(item.product_id._id)">Remove</button>
+  </div>
+
+  <h3>Total: ₹{{ getTotalAmount().toFixed(2) }}</h3>
+
+  <div class="checkout-container">
+    <button class="btn btn-primary" routerLink="/checkout">Proceed to Checkout</button>
+  </div>
+</div>
+
+<div class="cart-container" *ngIf="cart.products && !cart.products?.length">
+  <p>Your cart is empty!</p>
+  <a routerLink="products" class="btn btn-primary">Go to Shop</a>
+</div>

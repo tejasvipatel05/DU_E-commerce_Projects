@@ -6,6 +6,7 @@ const productController = require('../controllers/productController');
 
 
 // Public routes (view/search)
+router.get('/search', productController.searchProducts);
 router.get('/', productController.getProducts);
 router.get("/best-sellers", productController.getBestSellingProducts);
 router.get('/featured', productController.getFeaturedProducts);

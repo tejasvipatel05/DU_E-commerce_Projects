@@ -1,0 +1,37 @@
+<div class="order-history-container">
+    <h2>Order History</h2>
+  
+    <!-- <div *ngIf="orders.length === 0" class="empty-message">
+      <p>You haven't placed any orders yet. Start shopping now!</p>
+    </div> -->
+  
+    <div *ngFor="let order of orders" class="order-card">
+      <div class="order-header">
+        <h3>Order #{{ order._id }}</h3>
+        <span class="order-date">{{ order.orderDate | date }}</span>
+      </div>
+  
+      <div class="order-items">
+        <div *ngFor="let item of order.order_items" class="order-item">
+          <img [src]="item.product_id.product_img" alt="{{ item.productName }}" class="order-item-image" />
+          <div class="row order-item-details">
+            <div class="col-10">
+            <p class="product-name">{{ item.product_id.product_name }}</p>
+            <p class="product-price">₹{{ item.product_id.price }}</p>
+            <p class="product-quantity">Quantity: {{ item.quantity }}</p>
+        </div>
+        <div class="col-2">
+            <p><span class="order-status" [ngClass]="item.order_status">Status: {{ item.order_status }}</span></p>
+        </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="order-summary">
+        <p>Total Amount: ₹{{ order.total_amount }}</p>
+      </div>
+  
+      <!-- <button class="view-details-btn" (click)="viewOrderDetails(order.orderNumber)">View Details</button> -->
+    </div>
+  </div>
+  

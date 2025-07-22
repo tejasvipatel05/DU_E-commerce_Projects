@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const roles = require('../config/roles');
-const User = require("../model/User")
+const User = require("../model/User");
+require('dotenv').config();
 
 //Middleware to verify JWT Token
 // const authenticate = async (req, res, next) => {
@@ -29,24 +30,30 @@ const User = require("../model/User")
 // };
 
 const authenticate = (req, res, next) => {
-    console.log(req.headers);
-    
-    const token = req.headers["authorization"];
-    console.log("token:",token);
-    
-    if(!token) {
-        return res.status(401).json({ message: "Access Denied for authentication" });
+    // console.log("Request Headers:", req.headers); // ✅ Log all headers
+    // console.log("Expected JWT Secret:", process.env.SECRET_KEY);
+
+    const authHeader = req.headers["authorization"];
+    console.log("Authorization Header:", authHeader);
+
+    if (!authHeader) {
+        return res.status(401).json({ message: "Access Denied: No token provided" });
     }
 
     try {
-        const decoded = jwt.verify(token.split(" ")[1], process.env.SECRET_KEY);
-        req.user = decoded;  //to store user data in request
-        console.log(decoded);
+        const token = authHeader.split(" ")[1]; // Extract token after "Bearer "
+
+        const decoded = jwt.verify(token, process.env.SECRET_KEY);
+        req.user = decoded;  // Store user data in request
+        console.log("Decoded User:", req.user);
+
         next();
     } catch (error) {
+        console.error("JWT Verification Error:", error);
         res.status(400).json({ message: "Invalid Token" });
     }
 };
+
 
 const authorize = (action) => (req, res, next) => {
 

@@ -1,0 +1,41 @@
+<div *ngIf="loading" class="loading-spinner">
+    <p>Loading order details...</p>
+  </div>
+  
+  <div *ngIf="!loading && error" class="error-message">
+    <p>{{ error }}</p>
+  </div>
+  
+  <div *ngIf="!loading && !error" class="order-details-container">
+    <h2>Order #{{ orderDetails.orderNumber }}</h2>
+  
+    <div class="order-header">
+      <p><strong>Order Date:</strong> {{ orderDetails.orderDate | date }}</p>
+      <p><strong>Status:</strong> <span class="status" [ngClass]="orderDetails.status">{{ orderDetails.status }}</span></p>
+    </div>
+  
+    <div class="order-items">
+      <h3>Items</h3>
+      <div *ngFor="let item of orderDetails.items" class="order-item">
+        <img [src]="item.productImage" alt="{{ item.productName }}" class="order-item-image" />
+        <div class="order-item-details">
+          <p class="product-name">{{ item.productName }}</p>
+          <p class="product-price">₹{{ item.price }}</p>
+          <p class="product-quantity">Quantity: {{ item.quantity }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="order-summary">
+      <p><strong>Total Amount:</strong> ₹{{ calculateTotalAmount(orderDetails) }}</p>
+    </div>
+  
+    <div class="order-shipping-info">
+      <h4>Shipping Information</h4>
+      <p><strong>Address:</strong> {{ orderDetails.shippingAddress }}</p>
+      <p><strong>Phone:</strong> {{ orderDetails.shippingPhone }}</p>
+    </div>
+  
+    <button class="back-btn" (click)="goBack()">Back to Order History</button>
+  </div>
+  

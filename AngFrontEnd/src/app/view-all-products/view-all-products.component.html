@@ -15,11 +15,18 @@
                 <img src={{product.product_img[0]}} (click)="goToProductDetails(product._id)" class="card-img-top"
                 alt="{{product.product_name}}">
                 <div class="card-body">
-                        <h5 class="card-title">{{ product.product_name }}</h5>
+                  <div class="d-flex justify-content-between">
+                    
+                    <h5 class="card-title">{{ product.product_name }}</h5>
+                    <a (click)="addToWishlist(product._id)" style="cursor: pointer;">
+                      <span *ngIf="isInWishlist(product._id)">💙</span>
+                      <span *ngIf="!isInWishlist(product._id)">🤍</span>
+                    </a>
+                  </div>
                         <p class="card-text">Price: ₹{{ product.price }}</p>
                         <p class="card-text">Stock: {{ product.stock_quantity }}</p>
                     </div>
-                    <button (click)="addToCart(product._id,product.seller_id)" class="btn btn-success w-100">Add to
+                    <button (click)="addToCart(product._id,product.seller_id)" class="btn btn-primary w-100">Add to
                         Cart</button>
                 </div>
             </div>

@@ -1,27 +1,25 @@
 // import { Injectable } from '@angular/core';
-// import { Auth, signInWithEmailAndPassword, signInWithCredential, UserCredential } from '@angular/fire/auth';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class AuthService {
-//   constructor(private auth: Auth) {}
+@Injectable({
+  providedIn: 'root'
+})
+export class UserService {
+  private apiUrl = 'http://localhost:1005/auth/register';
 
-//   async loginWithEmail(email: string, password: string): Promise<UserCredential | null> {
-//     try {
-//       return await signInWithEmailAndPassword(this.auth, email, password);
-//     } catch (error) {
-//       console.error('Email Login Error:', error);
-//       return null;
-//     }
-//   }
+  constructor(private http: HttpClient) {}
 
-//   async loginWithPhone(credential: any): Promise<UserCredential | null> {
-//     try {
-//       return await signInWithCredential(this.auth, credential);
-//     } catch (error) {
-//       console.error('Phone Login Error:', error);
-//       return null;
-//     }
-//   }
-// }
+  getUserProfile(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/profile`);
+  }
+
+  updateUserProfile(profileData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/profile`, profileData);
+  }
+
+  uploadProfilePicture(fileData: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/upload-profile-picture`, fileData);
+  }
+}

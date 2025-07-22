@@ -3,20 +3,61 @@ const {User} = require('../model/User');
 const {Coupon} = require('../model/Coupon');
 
 //GET customer's own cart
+// const getMyCart = async (req, res) => {
+//     try {
+//       const userID = req.user.user_id;
+//       let user = await User.findById(userID);
+//       if(!user){
+//         return res.status(404).json({ message: "User not found" });
+//       }
+
+//       if (!user.cart_id) {
+//         return res.json({ message: 'Cart is empty', cart: null });
+//       }
+//       const cart = await Cart.findById(user.cart_id)
+//       .populate('products.product_id')
+//       .populate('products.seller_id')
+//       .populate('appliedCoupon');
+//       res.json(cart);
+//     } catch (error) {
+//       res.status(500).json({ message: 'Error fetching cart', error });
+//     }
+// };
+
 const getMyCart = async (req, res) => {
-    try {
-      const user = req.user;
-      if (!user.cart_id) {
-        return res.json({ message: 'Cart is empty', cart: null });
+  try {
+      const userID = req.user?.user_id;
+
+      if (!userID) {
+          return res.status(401).json({ message: "Unauthorized: User not found" });
       }
+
+      // Find the user
+      const user = await User.findById(userID).select("cart_id");
+      if (!user) {
+          return res.status(404).json({ message: "User not found" });
+      }
+
+      // If user has no cart, return empty response
+      if (!user.cart_id) {
+          return res.status(200).json({ message: "Cart is empty", cart: null });
+      }
+
+      // Fetch the cart with populated product details
       const cart = await Cart.findById(user.cart_id)
-      .populate('products.product_id')
-      .populate('products.seller_id')
-      .populate('appliedCoupon');
-      res.json(cart);
-    } catch (error) {
-      res.status(500).json({ message: 'Error fetching cart', error });
-    }
+          .populate("products.product_id")
+          .populate("products.seller_id")
+          .populate("appliedCoupon");
+
+      if (!cart) {
+          return res.status(404).json({ message: "Cart not found" });
+      }
+
+      res.status(200).json(cart);
+  } catch (error) {
+      console.error("Error fetching cart:", error);
+      res.status(500).json({ message: "Internal Server Error", error: error.message });
+  }
 };
 
 //Add product to customer's cart
@@ -27,6 +68,8 @@ const addProductToCart = async (req, res) => {
             return res.status(401).json({ message: "Unauthorized: User not found" });
         }
 
+      console.log("req-----",req);
+      
       const { product_id, seller_id, quantity } = req.body;
       const userId = req.user.user_id;
 
@@ -50,8 +93,9 @@ const addProductToCart = async (req, res) => {
       
       // Check if product already exists in the cart (match product_id & seller_id)
       const index = cart.products.findIndex(item =>
-        item.product_id.toString() === product_id &&
-        item.seller_id.toString() === seller_id
+        item.product_id.toString() === product_id 
+        // &&
+        // item.seller_id.toString() === seller_id
       );
       
   
@@ -73,23 +117,39 @@ const addProductToCart = async (req, res) => {
 //Update quantity of product in cart
 const updateProductInCart = async (req, res) => {
     try {
+      
       const { quantity } = req.body;
       const { productId } = req.params;
-      const user = req.user;
-  
+
+      const userID = req.user.user_id;
+      // console.log("UserID:",req.user.user_id);
+      if (!userID) {
+        return res.status(401).json({ message: "Unauthorized: User not found" });
+      }
+      
+      // Find the user
+      
+      const user = await User.findById(userID).select("cart_id");
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
       if (!user.cart_id) {
         return res.status(404).json({ message: 'Cart not found' });
       }
-  
+      
+      
       const cart = await Cart.findById(user.cart_id);
+      
       const product = cart.products.find(item => item.product_id.toString() === productId);
-  
+      
       if (!product) {
         return res.status(404).json({ message: 'Product not found in cart' });
       }
-  
+      
+      // console.log(typeof(quantity));
       // Update the quantity (if quantity is 0, you may choose to remove the product)
       product.quantity = quantity;
+      // console.log(product);
       await cart.save();
       res.json(cart);
     } catch (error) {
@@ -101,8 +161,10 @@ const updateProductInCart = async (req, res) => {
 const removeProductFromCart = async (req, res) => {
     try {
       const { productId } = req.params;
-      const user = req.user;
-  
+      const userId = req.user.user_id;
+      console.log("userrr--",userId);
+      
+      const user = await User.findById(userId);
       if (!user.cart_id) {
         return res.status(404).json({ message: 'Cart not found' });
       }

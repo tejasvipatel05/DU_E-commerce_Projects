@@ -23,10 +23,10 @@ const FeaturedProducts = () => {
                   style={{ height: "200px", objectFit: "cover" }}
                 />
                 <div className="card-body text-center">
-                  <h5 className="card-title">{product.name}</h5>
+                  <h5 className="card-title">{product.product_name}</h5>
                   <p className="card-text text-muted">{product.category_name}</p>
-                  <p className="fw-bold text-primary">${product.final_price}</p>
-                  <button className="btn btn-outline-primary w-100">Add to Cart</button>
+                  <p className="fw-bold">₹{product.price}</p>
+                  <button className="btn btn-primary w-100">Add to Cart</button>
                 </div>
               </div>
             </div>

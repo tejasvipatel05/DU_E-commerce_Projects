@@ -1,11 +1,12 @@
 const express = require('express');
-const {getMyOrders, getOrderByIdForCustomer, createOrder, updateOrderForCustomer, deleteOrderForCustomer, getOrdersForSeller, getOrderByIdForSeller, getAllOrders, getOrderByIdForAdmin, updateOrder, deleteOrder} = require('../controllers/orderController');
+const {getMyOrders, getOrderByIdForCustomer,getOrderDetails, createOrder, updateOrderForCustomer, deleteOrderForCustomer, getOrdersForSeller, getOrderByIdForSeller, getAllOrders, getOrderByIdForAdmin, updateOrder, deleteOrder} = require('../controllers/orderController');
 const { authenticate, authorize } = require('../middleware/authMiddleware');
 const router = express.Router();
 
-router.get('/me', authenticate, authorize('getMyOrders'), getMyOrders);
+router.get('/me', authenticate, getMyOrders);
+router.get('/details/:orderID', authenticate, getOrderDetails);  // Use orderID as the parameter
 router.get('/me/:orderId', authenticate, authorize('getOrderByIdForCustomer'), getOrderByIdForCustomer);
-router.post('/', authenticate, authorize('createOrder'), createOrder);
+router.post('/', authenticate, createOrder);
 router.put('/me/:orderId', authenticate, authorize('updateOrderForCustomer'), updateOrderForCustomer);
 router.delete('/me/:orderId', authenticate, authorize('deleteOrderForCustomer'), deleteOrderForCustomer);
 

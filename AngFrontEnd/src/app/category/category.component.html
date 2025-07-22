@@ -26,7 +26,7 @@
         <div class="category-carousel swiper">
           <div class="swiper-wrapper">
             <div class="swiper-slide text-center" *ngFor="let cat of data">
-              <a href="#" class="nav-link">
+              <a  [routerLink]="['/category', cat._id]" class="nav-link">
                 <img src="{{cat.category_img}}" loading="lazy" class="rounded-circle" alt="{{cat.category_name}}">
                 <h4 class="category-title">{{cat.category_name}}</h4>
               </a>

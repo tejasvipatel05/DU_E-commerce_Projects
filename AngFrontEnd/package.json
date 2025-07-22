@@ -22,6 +22,7 @@
     "@types/sweetalert": "^1.1.28",
     "autoprefixer": "^10.4.20",
     "bootstrap": "^5.3.3",
+    "cors": "^2.8.5",
     "firebase": "^11.4.0",
     "postcss": "^8.5.3",
     "rxjs": "~7.8.0",

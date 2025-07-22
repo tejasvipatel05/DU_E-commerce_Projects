@@ -1,0 +1,30 @@
+<!-- <div class="wishlist-container" *ngIf="wishlist?.length > 0; else emptyWishlist"> -->
+    <h2>Your Wishlist</h2>
+  
+    <div class="wishlist-item" *ngFor="let item of wishlist.products">
+      <img [src]="item.product_id.product_img" alt="{{ item.product_name }}" class="wishlist-product-image" />
+  
+      <div class="wishlist-product-details">
+        <p class="product-name">{{ item.product_id.product_name }}</p>
+        <p class="product-brand">{{ item.product_id.brand }}</p>
+        <p class="product-price">₹{{ item.product_id.price }}</p>
+  
+        <div class="wishlist-actions">
+          <!-- <button class="btn add-to-cart" (click)="addToCart(item.product_id)">Add to Cart</button> -->
+          <button class="btn remove" (click)="removeFromWishlist(item.product_id._id)">Remove</button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- <div class="checkout-container">
+      <button class="btn btn-primary" (click)="proceedToCheckout()">Proceed to Checkout</button>
+    </div> -->
+  <!-- </div> -->
+  
+  <ng-template #emptyWishlist>
+    <div class="empty-wishlist">
+      <p>Your wishlist is empty!</p>
+      <a routerLink="/products" class="btn go-to-shop">Go to Shop</a>
+    </div>
+  </ng-template>
+  

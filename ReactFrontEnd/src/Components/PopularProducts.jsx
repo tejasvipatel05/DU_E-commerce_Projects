@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 const PopularProducts = () => {
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState([]);    
 
     useEffect(() => {
         fetch("http://localhost:1005/product/popular") // Fetch from backend
@@ -20,11 +20,11 @@ const PopularProducts = () => {
                             <div className="card-body text-center">
                                 <h5 className="card-title">{product.product_name}</h5>
                                 <p className="card-text text-muted">{product.category_name}</p>
-                                <p className="fw-bold text-primary">${product.final_price}</p>
+                                <p className="fw-bold">${product.price}</p>
                                 <p className="text-warning">
                                     ⭐ {product.averageRating.toFixed(1)} ({product.reviewCount} reviews)
                                 </p>
-                                <button className="btn btn-outline-primary w-100">Add to Cart</button>
+                                <button className="btn btn-primary w-100">Add to Cart</button>
                             </div>
                         </div>
                     </div>

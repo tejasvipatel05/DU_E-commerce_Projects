@@ -1,6 +1,7 @@
+// require('dotenv').config({ path: './env' });
+require('dotenv').config();
 const express = require('express')
 const bodyParser = require('body-parser');
-require('dotenv').config();
 const connectDB = require('./config/db');
 const cors = require('cors');
 
@@ -19,8 +20,14 @@ const returnRoutes = require('./routes/ReturnRoutes');
 const wishlistRoutes = require('./routes/WishlistRoutes');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:5173", // your frontend domain
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // if you need to pass cookies
+}));
 app.use(bodyParser.json());
+
+console.log("Loaded JWT Secret:", process.env.SECRET_KEY);
 
 connectDB();
     

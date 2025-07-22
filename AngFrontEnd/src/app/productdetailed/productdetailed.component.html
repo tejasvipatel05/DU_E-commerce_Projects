@@ -5,14 +5,17 @@
       <!-- <a routerLink="/products" class="btn btn-outline-secondary mb-3">Back to Products</a> -->
       <div *ngIf="product" class="row">
         <div class="col-md-6">
-          <img [src]="product.product_img[0]" class="img-fluid rounded" alt="{{ product.product_name }}">
+          <img [src]="product.product.product_img" class="img-fluid rounded" alt="{{ product.product.product_name }}">
         </div>
         <div class="col-md-6">
-          <h2>{{ product.product_name }}</h2>
-          <p><strong>Price:</strong> ₹{{ product.price }}</p>
-          <p><strong>Stock:</strong> {{ product.stock_quantity }}</p>
-          <p><strong>Description:</strong> {{ product.description }}</p>
-          <button (click)="addToCart(product)" class="btn btn-success">Add to Cart</button>
+          <div class="d-flex">
+            <h2 class="align-items-center">{{ product.product.product_name }}</h2>
+            <a href="#" class="btn ms-5"><svg width="25" height="25"><use xlink:href="#heart"></use></svg></a>
+          </div>
+          <p><strong>Price:</strong> ₹{{ product.product.price }}</p>
+          <p><strong>Stock:</strong> {{ product.product.stock_quantity }}</p>
+          <p><strong>Description:</strong> {{ product.product.description }}</p>
+          <button (click)="addToCart(product._id,product.seller_id)" class="btn btn-success">Add to Cart</button>
         </div>
       </div>
     </div>
